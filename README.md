@@ -34,7 +34,6 @@ This repository is structured as follows:
 
 | **Folders** |          |               | **Contents**                                             |
 |-------------|----------|---------------|----------------------------------------------------------|
-| img         |          |               | _Images_                                                 |
 | 2022        |          |               |                                                          |
 |             | Analyses |               |                                                          |
 |             |          | OBP analyses  | _Analysis syntax (support staff survey)_                 |
@@ -44,6 +43,7 @@ This repository is structured as follows:
 |             |          | OBP mock data | _Data for analysis requests (support staff survey)_      |
 |             |          | WP codebook   | _Data description (academic personnel survey)_           |
 |             |          | WP mock data  | _Data for analysis requests (academic personnel survey)_ |
+| img         |          |               | _Images_                                                 |
 |             |          |               |                                                          |
 
 
