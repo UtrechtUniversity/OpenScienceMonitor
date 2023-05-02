@@ -1,4 +1,4 @@
-# Open Science Monitor <a href='https://www.uu.nl/onderzoek/open-science'><img src="www/UU.png" align="right" height="139" /></a>
+# Open Science Monitor <a href='https://www.uu.nl/onderzoek/open-science'><img src="img/UU.png" align="right" height="139" /></a>
 
 Information and mock data repository for Utrecht University's Open Science Monitor.
 
@@ -23,8 +23,8 @@ The repository is structured as follows:
 |           |          | WP codebook   | _Data description (academic personnel survey)_           |
 |           |          | WP mock data  | _Data for analysis requests (academic personnel survey)_ |
 |           | Analyses |               |                                                          |
-|           |          | OBP analyses  | _Analysis syntax (support staff survey)_                 |
-|           |          | WP analyses   | _Analysis syntax (academic personnel survey)_            |
+|           |          | OBP analyses  | _Analysis syntax (support staff survey)_         |
+|           |          | WP analyses   | _Analysis syntax (academic personnel survey)_    |
 |           |          |               |                                                          |
 
 ## Requests
@@ -33,5 +33,5 @@ Data analysis requests can be made through GitHub Issues.
 
 ---
 
-<a href='https://www.uu.nl/onderzoek/open-science'><img src="www/logo.png" align="left" width="100%" /></a>
+<a href='https://www.uu.nl/onderzoek/open-science'><img src="img/logo.png" align="left" width="100%" /></a>
 
