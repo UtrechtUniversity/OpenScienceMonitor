@@ -24,7 +24,7 @@ The Open Science Monitor is licensed under a <a rel="license" href="http://creat
 
 The main analyses of the Open Science Monitor 2022 have been performed using SPSS (v.28). The corresponding syntax files can be found in the Analyses folder, see [the Contents section below](#contents).
  
-If you would like to suggest secondary analyses for the Open Science Monitor 2022 data, please develop an analysis pipeline or syntax file that is compatible with the mock data in this repository. The mock data and codebooks can be found in the Data folder, see [the Contents section below](#contents). Preferably, use `R` or `SPSS` in these analysis requests.
+If you would like to suggest secondary analyses for the Open Science Monitor 2022 data, please develop an analysis pipeline or syntax file that is compatible with the mock data in this repository. The mock data and codebooks can be found in the Data folder, see [the Contents section below](#contents). Preferably, use `R`, `JASP`, or `SPSS` in these analysis requests.
 
 Data analysis requests can be made through <a href="https://github.com/UtrechtUniversity/OpenScienceMonitor/issues">GitHub Issues</a>. 
 
