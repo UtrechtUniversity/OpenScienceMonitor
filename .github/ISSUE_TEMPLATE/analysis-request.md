@@ -17,4 +17,4 @@ A clear and concise description of the analysis software and other requirements 
 Add any other context about the analysis request here.
 
 **Analysis script**
-Paste your analysis script/syntax in a 'code block' below, or link a pull request.
+Paste your analysis script/syntax in a 'code block' below (between two sets of three back ticks; e.g. \`\`\` `[your code here]` \`\`\`), or link a pull request.
