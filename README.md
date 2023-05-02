@@ -2,7 +2,11 @@
 
 Information and mock data repository for Utrecht University's Open Science Monitor.
 
+
 ---
+## Pre-registration
+
+The pre-regsitration of this study can be found on <a href="https://aspredicted.org/f5b9j.pdf">ASpredicted</a>
 
 ## Data use
 
