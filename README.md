@@ -18,7 +18,7 @@ The repository is structured as follows:
 |------|----------|---------------|
 | 2022 |          |               |
 |      | Data     |               |
-|      |          | OBP codebook  |
+|      |          | OBP codebook  | 
 |      |          | OBP mock data |
 |      |          | WP codebook   |
 |      |          | WP mock data  |
