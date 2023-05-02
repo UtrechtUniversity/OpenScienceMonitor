@@ -14,18 +14,18 @@ The Open Science Monitor is licensed under a <a rel="license" href="http://creat
 
 The repository is structured as follows:
 
-|      |          |               |
-|------|----------|---------------|
-| 2022 |          |               |
-|      | Data     |               |
-|      |          | OBP codebook  | 
-|      |          | OBP mock data |
-|      |          | WP codebook   |
-|      |          | WP mock data  |
-|      | Analyses |               |
-|      |          | OBP analyses  |
-|      |          | WP analyses   |
-|      |          |               |
+| **Files** |          |               | **Contents**                                             |
+|-----------|----------|---------------|----------------------------------------------------------|
+| 2022      |          |               |                                                          |
+|           | Data     |               |                                                          |
+|           |          | OBP codebook  | _Data description (support staff survey)_                |
+|           |          | OBP mock data | _Data for analysis requests (support staff survey)_      |
+|           |          | WP codebook   | _Data description (academic personnel survey)_           |
+|           |          | WP mock data  | _Data for analysis requests (academic personnel survey)_ |
+|           | Analyses |               |                                                          |
+|           |          | OBP analyses  | _Analysis syntax (support staff survey)_                 |
+|           |          | WP analyses   | _Analysis syntax (academic personnel survey)_            |
+|           |          |               |                                                          |
 
 ## Requests
 
