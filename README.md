@@ -9,9 +9,10 @@ Information and mock data repository for Utrecht University's Open Science Monit
 
 This project was started by the Open Science Programme of Utrecht University. With the Open Science Monitor, the university aims to gain insight into what can be done to facilitate and support Open Science among academics at Utrecht University and University Medical Center Utrecht. The survey contains questions about awareness, attitudes and behaviors regarding several Open Science practices, as well as questions about the opportunities and barriers in carrying out those practices.
 
-The pre-registration and report for the Open Science Monitor 2020 can be found on <a href="https://doi.org/10.5281/zenodo.5725177">Zenodo</a> (pre-registration DOI: 10.5281/zenodo.5727107; report DOI: 10.5281/zenodo.5725178).
+The pre-registration of the Open Science Monitor can be found on <a href="https://aspredicted.org/f5b9j.pdf">AsPredicted</a> and on <a href="https://doi.org/10.5281/zenodo.5727107">Zenodo</a> (pre-registration DOI: 10.5281/zenodo.5727107). 
 
-The pre-registration of the Open Science Monitor 2022 can be found on <a href="https://aspredicted.org/f5b9j.pdf">AsPredicted</a>.
+The report for the Open Science Monitor 2020 can be found on <a href="https://doi.org/10.5281/zenodo.5725177">Zenodo</a> (report DOI: 10.5281/zenodo.5725178).
+
 
 ## Data use
 
