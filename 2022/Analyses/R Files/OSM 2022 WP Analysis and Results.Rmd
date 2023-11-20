@@ -1,0 +1,472 @@
+---
+title: "OSM 2022 Analysis and Results WP"
+author: "Pepijn Vink"
+date: "`r Sys.Date()`"
+output: html_document
+---
+```{r, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>", echo = FALSE, fig.width = 6
+)
+```
+
+# OSM 2022 Analysis and Results WP
+
+```{r, message=FALSE}
+# Load necessary packages
+library(dplyr) # for data manipulation
+library(ggplot2) # for visualization
+library(magrittr) # for the pipe operator
+library(tibble) # to create tibbles
+library(foreign) # to import spss files
+library(purrr) # for functional programming
+library(skimr) # for descriptives
+library(knitr)
+library(rlang)
+```
+
+```{r}
+# Load necessary functions
+## for descriptives
+source("osm_descriptives.R")
+
+## for attitude behavior gap
+source("att_beh_gap.R")
+
+# load variable names to use
+load("variables_WP.RData")
+```
+
+
+## Reading In the data
+
+First specify the file path.
+
+```{r, echo = T}
+# filtered dataset
+file <- "~/surfdrive/Shared/OS Monitor 2022/Data/Data/UOS WP_ Open Science Monitor 2022.sav"
+data_full<- read.spss(file, to.data.frame = TRUE) # read in the data
+```
+
+We will only analyze those that gave consent, have not retired yet, and are part of scientific staff. In addition, we will only assess respondents that have a maximum of 50% (6) missings on questions on awareness. First, we will compute a variable that represents this, and then we will filter out respondents. We assign this to a new object 'dat' which we will perform our analyses on.
+
+```{r}
+# select columns to use
+data_raw <- data_full[, vars_WP]
+# filter out people
+dat_withoutID <- data_raw %>%
+  filter(Data_consent == 1,
+         pens == "niet gepensioneerd",
+         wp == "wp") %>%
+  mutate(missing_awareness = apply(.[,22:33], 1, function(x) x %>% is.na() %>% sum())) %>% # compute number of missings
+  filter(missing_awareness <= 6) %>% # filter out persons with >6 missings
+  select(-missing_awareness) # remove missingness variable
+
+# create ID column
+ID <- 1:nrow(dat_withoutID)
+dat <- cbind(ID, dat_withoutID)
+```
+
+## Get some basic descriptives
+
+```{r}
+# create descriptives for some variables
+map(dat[,c("Faculty_2", "Pos_2", "OSCU", "Gen", "Nationality")], 
+    table)
+```
+## Descriptives of Awareness {.tabset}
+
+The code below prints the frequencies of awareness as tabs.
+
+```{r, results='asis'}
+# create list with tables
+descr_aw <- dat[,23:34] %>%
+  map(table)
+
+# format tables
+osm_descriptives(descr_aw, '###')
+```
+
+## Descriptives of Awareness by Position {.tabset}
+
+### PhD {.tabset}
+
+```{r, results='asis'}
+descr_aw<- dat[dat$Pos_2 == 'PhD candidate', 23:34] %>%
+  map(table) %>%
+  map(as.data.frame)
+
+osm_descriptives(descr_aw, '####')
+```
+
+### Post-doc {.tabset}
+
+```{r, results='asis'}
+descr_aw<- dat[dat$Pos_2 == 'Post-doc', 23:34] %>%
+  map(table) %>%
+  map(as.data.frame)
+
+osm_descriptives(descr_aw, '####')
+```
+
+### Junior Teacher {.tabset}
+
+```{r, results='asis'}
+descr_aw<- dat[dat$Pos_2 == '(Junior) teacher', 23:34] %>%
+  map(table) %>%
+  map(as.data.frame)
+
+osm_descriptives(descr_aw, '####')
+```
+
+### Assistant Professor {.tabset}
+
+```{r, results='asis'}
+descr_aw<- dat[dat$Pos_2 == 'Assistant professor', 23:34] %>%
+  map(table) %>%
+  map(as.data.frame)
+
+osm_descriptives(descr_aw, '####')
+```
+
+### Associate Professor {.tabset}
+
+```{r, results='asis'}
+descr_aw<- dat[dat$Pos_2 == 'Associate professor', 23:34] %>%
+  map(table) %>%
+  map(as.data.frame)
+
+osm_descriptives(descr_aw, '####')
+```
+
+### Full Professor {.tabset}
+
+```{r, results='asis'}
+descr_aw<- dat[dat$Pos_2 == 'Full professor', 23:34] %>%
+  map(table) %>%
+  map(as.data.frame)
+
+osm_descriptives(descr_aw, '####')
+```
+
+## Descriptives of Attitudes {.tabset}
+
+The code below prints the frequencies of attitudes as tabs.
+
+```{r, results='asis'}
+# create list with tables
+descr_att <- dat[,35:46] %>%
+  map(table)
+
+# format tables
+osm_descriptives(descr_att, '###')
+```
+
+## Descriptives of Attitudes by Position {.tabset}
+
+### PhD {.tabset}
+
+```{r, results='asis'}
+descr_att<- dat[dat$Pos_2 == 'PhD candidate', 35:46] %>%
+  map(table) %>%
+  map(as.data.frame)
+
+osm_descriptives(descr_att, '####')
+```
+
+### Post-doc {.tabset}
+
+```{r, results='asis'}
+descr_att<- dat[dat$Pos_2 == 'Post-doc', 35:46] %>%
+  map(table) %>%
+  map(as.data.frame)
+
+osm_descriptives(descr_att, '####')
+```
+
+### Junior Teacher {.tabset}
+
+```{r, results='asis'}
+descr_att<- dat[dat$Pos_2 == '(Junior) teacher', 35:46] %>%
+  map(table) %>%
+  map(as.data.frame)
+
+osm_descriptives(descr_att, '####')
+```
+
+### Assistant Professor {.tabset}
+
+```{r, results='asis'}
+descr_att<- dat[dat$Pos_2 == 'Assistant professor', 35:46] %>%
+  map(table) %>%
+  map(as.data.frame)
+
+osm_descriptives(descr_att, '####')
+```
+
+### Associate Professor {.tabset}
+
+```{r, results='asis'}
+descr_att<- dat[dat$Pos_2 == 'Associate professor', 35:46] %>%
+  map(table) %>%
+  map(as.data.frame)
+
+osm_descriptives(descr_att, '####')
+```
+
+### Full Professor {.tabset}
+
+```{r, results='asis'}
+descr_att<- dat[dat$Pos_2 == 'Full professor', 35:46] %>%
+  map(table) %>%
+  map(as.data.frame)
+
+osm_descriptives(descr_aw, '####')
+```
+
+## Descriptives of Behaviors {.tabset}
+
+The code below prints the frequencies of behaviors as tabs.
+
+```{r, results='asis'}
+# create list with tables
+descr_beh <- dat[,47:58] %>%
+  map(table) %>%
+  map(as.data.frame)
+
+# format tables
+osm_descriptives(descr_beh, '###')
+```
+
+## Descriptives of Behaviors by Position {.tabset}
+
+### PhD {.tabset}
+
+```{r, results='asis'}
+descr_beh<- dat[dat$Pos_2 == 'PhD candidate', 47:58] %>%
+  map(table) %>%
+  map(as.data.frame)
+
+osm_descriptives(descr_beh, '####')
+```
+
+### Post-doc {.tabset}
+
+```{r, results='asis'}
+descr_beh<- dat[dat$Pos_2 == 'Post-doc', 47:58] %>%
+  map(table) %>%
+  map(as.data.frame)
+
+osm_descriptives(descr_beh, '####')
+```
+
+### Junior Teacher {.tabset}
+
+```{r, results='asis'}
+descr_beh<- dat[dat$Pos_2 == '(Junior) teacher', 47:58] %>%
+  map(table) %>%
+  map(as.data.frame)
+
+osm_descriptives(descr_beh, '####')
+```
+
+### Assistant Professor {.tabset}
+
+```{r, results='asis'}
+descr_beh<- dat[dat$Pos_2 == 'Assistant professor', 47:58] %>%
+  map(table) %>%
+  map(as.data.frame)
+
+osm_descriptives(descr_beh, '####')
+```
+
+### Associate Professor {.tabset}
+
+```{r, results='asis'}
+descr_beh<- dat[dat$Pos_2 == 'Associate professor', 47:58] %>%
+  map(table) %>%
+  map(as.data.frame)
+
+osm_descriptives(descr_beh, '####')
+```
+
+### Full Professor {.tabset}
+
+```{r, results='asis'}
+descr_beh<- dat[dat$Pos_2 == 'Full professor', 47:58] %>%
+  map(table) %>%
+  map(as.data.frame)
+
+osm_descriptives(descr_beh, '####')
+```
+
+## Attitude-Behavior Gap
+
+### Full sample
+
+```{r, warning = F}
+att_beh_gap_full <- att_beh_gap(data = dat)
+kable(att_beh_gap_full, digits = 3)
+```
+
+### Attitude Behavior Gap by Position {.tabset}
+
+```{r, echo=F}
+positions <- c("PhD candidate", "Post-doc", "(Junior) teacher", "Assistant professor", "Associate professor", "Full professor")
+```
+
+```{r, warning=FALSE}
+att_beh_positions <- vector(mode = "list", length = 6)
+for(i in seq_along(positions)){
+  pos <- positions[i]
+  att_beh_positions[[i]] <- att_beh_gap(position = pos, data = dat)
+}
+names(att_beh_positions) <- positions
+```
+
+```{r, results = 'asis'}
+for (i in seq_along(att_beh_positions)){
+    cat('####', names(att_beh_positions)[i], "\n")
+    cat("\n")
+    print(kable(att_beh_positions[[i]], caption = cat("Attitude behavior gap Analysis for ", names(att_beh_positions)[i], "\n"), digits = 3))
+    cat("\n")
+  }
+```
+
+### Attitude Behavior Gap by Faculty {.tabset}
+
+```{r, echo=F}
+faculties <- levels(dat$Faculty_2)[1:7]
+```
+
+```{r, warning=FALSE}
+att_beh_faculties <- vector(mode = "list", length = 7)
+for(i in seq_along(faculties)){
+  fac <- faculties[i]
+  att_beh_faculties[[i]] <- att_beh_gap(faculty = fac, data = dat)
+}
+names(att_beh_faculties) <- faculties
+```
+
+```{r, results = 'asis'}
+for (i in seq_along(att_beh_faculties)){
+    cat('####', names(att_beh_faculties)[i], "\n")
+    cat("\n")
+    print(kable(att_beh_faculties[[i]], caption = cat("Attitude behavior gap analysis for ", names(att_beh_faculties)[i], "\n"), digits = 3))
+    cat("\n")
+  }
+```
+
+## Opportunities {.tabset}
+
+```{r}
+# copy data frame to use
+dat_opp <- dat %>%
+  mutate_at(
+    vars(dplyr::starts_with("OppMat")), as.numeric
+  ) %>%
+  mutate_at(
+    vars(dplyr::starts_with("OppMat")),
+    ~case_when(
+      . == 1 | . == 2 ~ 1,
+      . == 3 ~ 2,
+      . == 4 | . == 5 ~ 3,
+      is.na(NA) ~ NA
+    )) %>%
+  select(dplyr::starts_with("OppMat"))
+
+opportunities <- dat_opp %>%
+  map_df(table) %>%
+  mutate(n = rowSums(.),
+         missing = nrow(dat)-n)
+
+colnames(opportunities) <- c("(Strongly) disagree", "Neutral", "(Strongly) Agree", "n", "missing")
+
+opportunities <- as.data.frame(opportunities)
+
+opp_rownames <- c("...improve quality of scientific knowledge",
+         "...detect unethical behavior in research practices",
+         "...improve diversity and inclusion in academia",
+         "...improve fairness in reward and promotion systems in academia",
+         "...create more career opportunities for young academics",
+         "...increase the societal impact of scientific work",
+         "...increase inter- or multidisciplinary collaborations between academics",
+         "...improve collaborative atmosphere among collegues",
+         "...improve the quality of education",
+         "...learn from each others’ mistakes and talk openly about them")
+
+rownames(opportunities) <- opp_rownames
+
+opportunities_perc <- opportunities %>%
+  mutate_at(1:3, ~ ./n*100)
+```
+
+### Raw Values
+
+```{r}
+kable(opportunities, digits = 2)
+```
+
+### Percentages
+
+```{r}
+kable(opportunities_perc, digits = 2)
+```
+
+## Barriers {.tabset}
+
+```{r}
+# copy data frame to use
+dat_bar <- dat %>%
+  mutate_at(
+    vars(dplyr::starts_with("BarMat")), as.numeric
+  ) %>%
+  mutate_at(
+    vars(dplyr::starts_with("BarMat")),
+    ~case_when(
+      . == 1 | . == 2 ~ 1,
+      . == 3 ~ 2,
+      . == 4 | . == 5 ~ 3,
+      is.na(NA) ~ NA
+    )) %>%
+  select(dplyr::starts_with("BarMat"))
+
+barriers <- dat_bar %>%
+  map_df(table) %>%
+  mutate(n = rowSums(.),
+         missing = nrow(dat)-n)
+
+colnames(barriers) <- c("(Strongly) disagree", "Neutral", "(Strongly) Agree", "n", "missing")
+
+barriers <- as.data.frame(barriers)
+
+bar_rownames <- c("...my workload is too high to integrate these practices",
+                  "...I do not get time within my contract hours to do / learn this",
+                  "...I do not get recognition from my supervisor for this",
+                  "...it is not the norm to do this in my department (my colleagues don’t do it)",
+                  "...there is insufficient practical support and training available in my department about this",
+                  "...I would lose autonomy and freedom in how I do my work research",
+                  "...my research does not allow for it due to for example the GDPR, embargos and or patent issues",
+                  "...many OS practices do not fit with the culture of competition that exists in my department",
+                  "...career promotion and success still heavily rely on “individual excellence” standards that do not fit with many OS practices",
+                  "...I am afraid that if I make a mistake in my OS practices, it will be held against me (e.g., by being publicly shamed, orseen as fraudulent)")
+
+rownames(barriers) <- bar_rownames
+
+barriers_perc <- barriers %>%
+  mutate_at(1:3, ~ ./n*100)
+```
+
+### Raw Values
+
+```{r}
+kable(barriers, digits = 2)
+```
+
+### Percentages
+
+```{r}
+kable(barriers_perc, digits = 2)
+```
+
+
